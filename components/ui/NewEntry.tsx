@@ -1,12 +1,18 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useContext } from 'react'
 
 import { Box, Button, TextField } from '@mui/material'
 import BookmarkAddedOutlinedIcon from '@mui/icons-material/BookmarkAddedOutlined';
 import BookmarkRemoveOutlinedIcon from '@mui/icons-material/BookmarkRemoveOutlined';
 import AddIcon from '@mui/icons-material/AddCommentOutlined';
 
+import { EntriesContext } from '../../context/entries';
+
+
+
 
 export const NewEntry = () => {
+
+    const {addNewEntry} = useContext(EntriesContext)
 
     const [isAdding, setIsAdding] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -17,9 +23,11 @@ export const NewEntry = () => {
     }
 
     const onSave = () => {
+
         if(inputValue.length === 0) return;
         console.log(inputValue)
 
+        addNewEntry(inputValue)
     }
 
     return (
@@ -41,7 +49,7 @@ export const NewEntry = () => {
                             onBlur = {() => setTouched(true)}
                         />
 
-                        <Box display="flex" justifyContent='space-between' paddingBottom={1}>
+                        <Box display="flex" justifyContent='space-between' sx={{flexDirection: 'column', gap:1}} >
                             <Button
                                 variant='outlined'
                                 color='primary'
@@ -72,12 +80,6 @@ export const NewEntry = () => {
                             Añadir tarea
                         </Button>)
             }
-
-
-
-
-
-
 
         </Box>
     )
