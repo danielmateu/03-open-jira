@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 
 import { Typography, Grid, Card, CardHeader, CardContent } from '@mui/material';
 import { Layout } from '../components/layouts';
+import { EntryList } from '../components/ui';
 
 
 const HomePage: NextPage = () => {
@@ -16,6 +17,7 @@ const HomePage: NextPage = () => {
             <CardContent>
               {/* Agregar nueva tarea */}
               {/* Listado de las entradas */}
+              <EntryList/>
             </CardContent>
           </Card>
         </Grid>
