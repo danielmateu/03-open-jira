@@ -12,7 +12,7 @@ export const EntryCard = () => {
                     <Typography sx = {{ whiteSpace: 'pre-line'}}>Esto es la descripción</Typography>
                 </CardContent>
 
-                <CardActions sx = {{ display:'flex', justifyContent: 'end', paddingRight: '1em'}}>
+                <CardActions sx = {{ display:'flex', justifyContent: 'end', paddingRight: '2'}}>
                     <Typography variant='body2'>Hace 30 minutos</Typography>
                 </CardActions>
 

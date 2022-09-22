@@ -1,14 +1,25 @@
 import { List, Paper } from '@mui/material'
-import React from 'react'
+import React, { FC } from 'react'
+import { EntryStatus } from '../../interfaces'
 import { EntryCard } from './EntryCard'
 
-export const EntryList = () => {
+interface Props { 
+    status: EntryStatus
+}
+
+export const EntryList:FC<Props> = ({status}) => {
+
+    console.log({status});
+
+
     return (
 
         //TODO: Aquí realizaremos el Drop
 
     <div>
-        <Paper sx={{height: 'calc(100vh - 100px)', backgroundColor: 'transparent', padding: '1em', overflow: 'scroll'}}>
+        <Paper sx={{ backgroundColor: 'transparent', padding: 1
+        // overflow: 'scroll'
+        }}>
 
                 {/* TODO: Cambiará dependiendo de si estoy haciendo drag o no */}
             <List sx = {{opacity: 1}}>

@@ -12,25 +12,34 @@ const HomePage: NextPage = () => {
       <Grid container spacing={2}>
 
         <Grid item xs={12} sm={4} xl={1}>
-          <Card sx = {{height: 'calc(100vh - 100px)'}}>
+          <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title='Pendientes' />
             <CardContent>
               {/* Agregar nueva tarea */}
               {/* Listado de las entradas */}
-              <EntryList/>
+              <EntryList status='pending' />
             </CardContent>
           </Card>
         </Grid>
+
         <Grid item xs={12} sm={4} xl={1}>
-          <Card sx = {{height: 'calc(100vh - 100px)'}} >
+          <Card sx={{ height: 'calc(100vh - 100px)' }} >
             <CardHeader title='En Progreso' />
+            <CardContent>
+              <EntryList status='in-progress' />
+            </CardContent>
           </Card>
         </Grid>
+
         <Grid item xs={12} sm={4} xl={1}>
-          <Card sx = {{height: 'calc(100vh - 100px)'}}>
+          <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title='Completadas' />
+            <CardContent>
+              <EntryList status='finished' />
+            </CardContent>
           </Card>
         </Grid>
+
       </Grid>
     </Layout>
   )
