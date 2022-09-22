@@ -42,7 +42,7 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
 
         const newEntry: Entry ={
             _id: uuidv4(),
-            description: '',
+            description,
             createdAt: Date.now(),
             status: 'pending'
         }

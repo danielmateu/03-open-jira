@@ -21,7 +21,7 @@ export const EntryList: FC<Props> = ({ status }) => {
 
         <div>
             <Paper sx={{
-                backgroundColor: 'transparent', padding: 1
+                backgroundColor: 'transparent', padding: 1,
                 // overflow: 'scroll'
             }}>
 

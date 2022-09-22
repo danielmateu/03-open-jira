@@ -25,9 +25,10 @@ export const NewEntry = () => {
     const onSave = () => {
 
         if(inputValue.length === 0) return;
-        console.log(inputValue)
+        
 
         addNewEntry(inputValue)
+    
     }
 
     return (
