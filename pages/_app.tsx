@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
+import { EntriesProvider } from '../context/entries';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -26,12 +27,17 @@ export default function MyApp<Props>(props: {
           content="initial-scale=1, width=device-width"
         />
       </Head>
-      <UIProvider>
+
+      <EntriesProvider>
+        <UIProvider>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
-      </UIProvider>
+        </UIProvider>
+      </EntriesProvider>
+
+      
     </CacheProvider>
   );
 }
