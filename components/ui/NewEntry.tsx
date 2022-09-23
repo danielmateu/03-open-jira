@@ -6,15 +6,14 @@ import BookmarkRemoveOutlinedIcon from '@mui/icons-material/BookmarkRemoveOutlin
 import AddIcon from '@mui/icons-material/AddCommentOutlined';
 
 import { EntriesContext } from '../../context/entries';
-
-
-
+import { UIContext } from '../../context/ui/UIContext';
 
 export const NewEntry = () => {
 
     const {addNewEntry} = useContext(EntriesContext)
-
-    const [isAdding, setIsAdding] = useState(false);
+    const {isAddingEntry, setIsAddingEntry} =useContext(UIContext)
+    // const [isAdding, setIsAdding] = useState(false);
+    // const [isAddingEntry, setIsAddingEntry] = useState(false)
     const [inputValue, setInputValue] = useState('');
     const [touched, setTouched] = useState(false);
 
@@ -35,7 +34,7 @@ export const NewEntry = () => {
         <Box sx={{ marginBottom: 2, paddingX: 1 }}>
 
             {
-                isAdding ?
+                isAddingEntry ?
                     (<>
                         <TextField
                             fullWidth
@@ -63,7 +62,7 @@ export const NewEntry = () => {
                                 variant='outlined'
                                 color='warning'
                                 endIcon={<BookmarkRemoveOutlinedIcon />}
-                                onClick={() => setIsAdding(false)}
+                                onClick={() => setIsAddingEntry(false)}
                             >
                                 cancelar
                             </Button>
@@ -76,7 +75,7 @@ export const NewEntry = () => {
                             startIcon={<AddIcon />}
                             fullWidth
                             variant='outlined'
-                            onClick={() => setIsAdding(true)}
+                            onClick={() => setIsAddingEntry(true)}
                         >
                             Añadir tarea
                         </Button>)
