@@ -18,7 +18,7 @@ const HomePage: NextPage = () => {
       {/* <Typography variant='h1' color='primary'>Hola mundo! 😉</Typography> */}
       <Grid container spacing={2}>
 
-        <Grid item xs={12} sm={4} xl={4}>
+        <Grid item xs={12} sm={4} md={4} >
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title='Pendientes' />
             <CardContent>
@@ -30,7 +30,7 @@ const HomePage: NextPage = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={4} xl={4}>
+        <Grid item xs={12} sm={4} md={4} >
           <Card sx={{ height: 'calc(100vh - 100px)' }} >
             <CardHeader title='En Progreso' />
             <CardContent>
@@ -39,7 +39,7 @@ const HomePage: NextPage = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={4} xl={4}>
+        <Grid item xs={12} sm={4} md={4} >
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title='Completadas' />
             <CardContent>
