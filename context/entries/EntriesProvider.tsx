@@ -29,13 +29,22 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
         // }
 
         const {data} = await entriesApi.post<Entry>('/entries',{description});
-
+        
         dispatch({ type: '[Entry] - Add-Entry', payload: data })
     }
+    
+    const updateEntry = async({_id, description, status}:Entry) => {
+        
+        try {
+            const {data} = await entriesApi.put<Entry>(`/entries/${_id}`
+            , { description, status}) ;
+            dispatch({ type: '[Entry] - Entry-Updated', payload: data })
 
-    const updateEntry = (entry: Entry) => {
+            
+        } catch (error) {
+            console.log({error});
+        }
 
-        dispatch({ type: '[Entry] - Entry-Updated', payload: entry })
 
     }
 
