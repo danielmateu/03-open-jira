@@ -20,7 +20,7 @@ export const EntryList: FC<Props> = ({ status }) => {
 
     const allowDrop = (event:DragEvent<HTMLDivElement>) => {
         event.preventDefault();
-        console.log(event)
+        // console.log(event)
     }
 
     const onDropEntry = (event: DragEvent<HTMLDivElement>) => {
