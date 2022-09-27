@@ -20,6 +20,9 @@ export const UIProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
 
+    /**
+     * When the user clicks the button, dispatch an action to the reducer to open the sidebar.
+     */
     const openSideMenu = () => {
         dispatch({type: 'UI - Open Sidebar'});
     }
@@ -30,6 +33,9 @@ export const UIProvider: FC<PropsWithChildren> = ({ children }) => {
         dispatch({type: 'UI - Set isAddingEntry', payload: isAdding})
     }
 
+    /**
+     * When the user clicks on the element, dispatch an action to the reducer to update the state.
+     */
     const startDragging = () => {
         dispatch({type: 'UI - Start Dragging'});
     }

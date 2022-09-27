@@ -36,6 +36,7 @@ export const EntryCard:FC<Props> = ({entry}) => {
         >    
             <CardActionArea sx = {{  padding: '.2em'}}>
 
+                
                 <CardContent>
                     <Typography sx = {{ whiteSpace: 'pre-line'}}>{entry.description}</Typography>
                 </CardContent>
