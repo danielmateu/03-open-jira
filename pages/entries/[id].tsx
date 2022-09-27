@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo, useState } from 'react'
+import React, { ChangeEvent, useMemo, useState, useContext } from 'react'
 
 import { GetServerSideProps } from 'next'
 
@@ -6,26 +6,28 @@ import { Layout } from '../../components/layouts';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkRemoveOutlinedIcon from '@mui/icons-material/BookmarkRemoveOutlined';
 import { Grid, Card, CardHeader, CardContent, TextField, CardActions, Button, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, capitalize, IconButton } from '@mui/material';
-import { EntryStatus } from '../../interfaces';
+import { Entry, EntryStatus } from '../../interfaces';
 // import { EntryStatus } from '../../interfaces/entry';
 import { FC } from 'react';
 import { isValidObjectId } from 'mongoose';
 import { useRouter } from 'next/router';
+import { dbEntries } from '../../database';
+import { EntriesContext } from '../../context/entries/EntriesContext';
 
 
 const validStatus = ['pending', 'in-progress', 'finished'];
 
 interface Props {
-
+    entry: Entry,
 }
 
-export const EntryPage: FC<Props> = (props) => {
+export const EntryPage: FC<Props> = ({entry}) => {
 
-    console.log({ props })
+    // console.log({ props })
+    const {updateEntry} = useContext(EntriesContext)
 
-
-    const [inputValue, setInputValue] = useState('');
-    const [status, setStatus] = useState<EntryStatus>('pending');
+    const [inputValue, setInputValue] = useState(entry.description);
+    const [status, setStatus] = useState<EntryStatus>(entry.status);
     const [touched, setTouched] = useState(false);
 
     const onInputValueChanged = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,13 +39,26 @@ export const EntryPage: FC<Props> = (props) => {
     }
 
     const onSave = () => {
-        console.log({ inputValue, status });
+        // console.log({ inputValue, status });
+
+        if(inputValue.trim().length === 0) return;
+
+        const updatedEntry : Entry = { 
+            ...entry,
+            status,
+            description: inputValue,
+            
+
+        }
+
+        updateEntry(updatedEntry, true);
+
     }
 
     const isNotValid = useMemo(() => inputValue.length <= 0 && touched, [inputValue, touched])
 
     return (
-        <Layout title=".....">
+        <Layout title={inputValue.substring(0,20) + '...'}>
             <Grid
                 container
                 justifyContent='center'
@@ -52,8 +67,8 @@ export const EntryPage: FC<Props> = (props) => {
             >
                 <Grid item xs={12} sm={8} md={6}>
                     <Card>
-                        <CardHeader title={`Entrada: ${inputValue}`}
-                            subheader={`Creada hace ... minutos`}
+                        <CardHeader title={`Entrada:`}
+                            subheader={`Creada hace ${entry.createdAt} minutos`}
                         />
 
                         <CardContent>
@@ -138,7 +153,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     const { id } = params as { id: string };
 
-    if (!isValidObjectId(id)) {
+    const entry = await dbEntries.getEntryById(id)
+
+    if (!entry) {
         return {
             redirect: {
                 destination: '/',
@@ -149,8 +166,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
     return {
         props: {
-            id: isValidObjectId(id),
-
+            entry
         }
     }
 }

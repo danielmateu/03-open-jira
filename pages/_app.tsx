@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Head from 'next/head';
+import { SnackbarProvider } from 'notistack';
 
 import createEmotionCache from '../src/createEmotionCache';
 import { UIProvider } from '../context/ui';
@@ -28,16 +29,19 @@ export default function MyApp<Props>(props: {
         />
       </Head>
 
-      <EntriesProvider>
-        <UIProvider>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-        </UIProvider>
-      </EntriesProvider>
+      <SnackbarProvider maxSnack = {3}>
+        <EntriesProvider>
+          <UIProvider>
+            <ThemeProvider theme={darkTheme}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </UIProvider>
+        </EntriesProvider>
+      </SnackbarProvider>
 
-      
+
+
     </CacheProvider>
   );
 }
