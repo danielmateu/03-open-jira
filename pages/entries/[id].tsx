@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useMemo, useState } from 'react'
 
 import { Layout } from '../../components/layouts';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
@@ -20,13 +20,15 @@ export const EntryPage = () => {
         setInputValue(e.target.value)
     }
 
-    const onStatusChanged =  (e: ChangeEvent<HTMLInputElement>) => {
+    const onStatusChanged = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.value as EntryStatus);
     }
 
     const onSave = () => {
-        console.log({inputValue, status});
+        console.log({ inputValue, status });
     }
+
+    const isNotValid = useMemo(() => inputValue.length <= 0 && touched, [inputValue, touched])
 
     return (
         <Layout title=".....">
@@ -50,28 +52,31 @@ export const EntryPage = () => {
                                 autoFocus
                                 multiline
                                 label='Nueva entrada'
-                                value = {inputValue}
+                                value={inputValue}
+                                onBlur={() => setTouched(true)}
                                 onChange={onInputValueChanged}
+                                helperText={isNotValid && 'Ingrese un valor'}
+                                error={isNotValid}
                             />
 
                             {/* RADIO */}
                             <FormControl>
                                 <FormLabel>
-                                    Estado: 
+                                    Estado:
                                 </FormLabel>
                                 <RadioGroup
                                     row
-                                    value= {status}
+                                    value={status}
                                     onChange={onStatusChanged}
-                                    >
+                                >
                                     {
                                         validStatus.map(option => (
                                             <FormControlLabel
-                                                key = {option}
+                                                key={option}
                                                 value={option}
-                                                control={<Radio/>}
+                                                control={<Radio />}
                                                 label={capitalize(option)}
-                                                
+
                                             />
                                         ))
                                     }
@@ -86,6 +91,7 @@ export const EntryPage = () => {
                                 variant='contained'
                                 fullWidth
                                 onClick={onSave}
+                                disabled={inputValue.length <= 0}
                             >
 
                                 Save
@@ -99,13 +105,13 @@ export const EntryPage = () => {
 
             </Grid>
 
-            <IconButton sx={{ 
+            <IconButton sx={{
                 position: 'fixed',
                 bottom: 30,
                 right: 30,
                 backgroundColor: 'error.dark'
             }}>
-                <BookmarkRemoveOutlinedIcon/>
+                <BookmarkRemoveOutlinedIcon />
             </IconButton>
 
 
