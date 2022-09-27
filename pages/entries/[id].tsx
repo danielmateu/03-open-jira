@@ -9,8 +9,7 @@ import { Grid, Card, CardHeader, CardContent, TextField, CardActions, Button, Fo
 import { Entry, EntryStatus } from '../../interfaces';
 // import { EntryStatus } from '../../interfaces/entry';
 import { FC } from 'react';
-import { isValidObjectId } from 'mongoose';
-import { useRouter } from 'next/router';
+
 import { dbEntries } from '../../database';
 import { EntriesContext } from '../../context/entries/EntriesContext';
 
@@ -21,10 +20,11 @@ interface Props {
     entry: Entry,
 }
 
-export const EntryPage: FC<Props> = ({entry}) => {
+export const EntryPage: FC<Props> = ({ entry }) => {
 
     // console.log({ props })
-    const {updateEntry} = useContext(EntriesContext)
+    const { updateEntry } = useContext(EntriesContext)
+    const {deleteEntry} = useContext(EntriesContext)
 
     const [inputValue, setInputValue] = useState(entry.description);
     const [status, setStatus] = useState<EntryStatus>(entry.status);
@@ -41,24 +41,29 @@ export const EntryPage: FC<Props> = ({entry}) => {
     const onSave = () => {
         // console.log({ inputValue, status });
 
-        if(inputValue.trim().length === 0) return;
+        if (inputValue.trim().length === 0) return;
 
-        const updatedEntry : Entry = { 
+        const updatedEntry: Entry = {
             ...entry,
             status,
             description: inputValue,
-            
-
         }
 
         updateEntry(updatedEntry, true);
 
     }
 
+    const onDelete = () => {
+        deleteEntry(entry, true);
+        // router.push('/');
+
+        
+    }
+
     const isNotValid = useMemo(() => inputValue.length <= 0 && touched, [inputValue, touched])
 
     return (
-        <Layout title={inputValue.substring(0,20) + '...'}>
+        <Layout title={inputValue.substring(0, 20) + '...'}>
             <Grid
                 container
                 justifyContent='center'
@@ -132,12 +137,14 @@ export const EntryPage: FC<Props> = ({entry}) => {
 
             </Grid>
 
-            <IconButton sx={{
-                position: 'fixed',
-                bottom: 30,
-                right: 30,
-                backgroundColor: 'error.dark'
-            }}>
+            <IconButton
+                onClick={onDelete}
+                sx={{
+                    position: 'fixed',
+                    bottom: 30,
+                    right: 30,
+                    backgroundColor: 'error.dark'
+                }}>
                 <BookmarkRemoveOutlinedIcon />
             </IconButton>
 
