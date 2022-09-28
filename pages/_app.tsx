@@ -32,7 +32,7 @@ export default function MyApp<Props>(props: {
       <SnackbarProvider maxSnack = {3}>
         <EntriesProvider>
           <UIProvider>
-            <ThemeProvider theme={darkTheme}>
+            <ThemeProvider theme={lightTheme}>
               <CssBaseline />
               <Component {...pageProps} />
             </ThemeProvider>
